@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace generator
 {
-    class DuelList
+    public class DuelList
     {
         private Duel[] list
         {

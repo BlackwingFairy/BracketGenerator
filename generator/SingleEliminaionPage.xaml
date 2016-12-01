@@ -7,8 +7,5 @@
       mc:Ignorable="d" 
       Title="SingleEliminaionPage" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
-    <Grid Margin="20">
-        <TextBox x:Name="textBox" Height="18" Margin="0,0,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="auto"/>
-
-    </Grid>
+    <Grid Margin="20"/>
 </Page>

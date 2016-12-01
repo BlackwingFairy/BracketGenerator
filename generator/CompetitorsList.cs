@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace generator
 {
-    class CompetitorsList
+    public class CompetitorsList
     {
-        private Competitor[] list
+        Competitor[] list;
+        public Competitor[] List
         {
             set { list = value; }
             get { return list; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace generator
 {
-    struct Competitor
+    public struct Competitor
     {
         public int ratingNum;
         public string name;
