@@ -6,24 +6,24 @@ using System.Threading.Tasks;
 
 namespace generator
 {
-    struct Duel
+    public struct Duel
     {
-        public int compNum1;
-        public int compNum2;
+        public Competitor comp1;
+        public Competitor comp2;
         public int duelNum;
 
-        public Duel(int compNum1,int compNum2,int duelNum)
+        public Duel(Competitor comp1,Competitor comp2,int duelNum)
         {
-            this.compNum1 = compNum1;
-            this.compNum2 = compNum2;
+            this.comp1 = comp1;
+            this.comp2 = comp2;
             this.duelNum = duelNum;
         }
 
         override
         public String ToString()
         {
-            return "First competitor number:" + compNum1 + "\nSecong competitor number: " +
-                compNum2 + "\nDuel number: " + duelNum;
+            return "First competitor\n" + comp1.ToString() + "\nSecong competitor\n" +
+                comp2.ToString() + "\n\nDuel number: " + duelNum;
         }
     }
 }

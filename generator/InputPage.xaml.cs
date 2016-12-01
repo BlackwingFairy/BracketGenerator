@@ -39,8 +39,22 @@ namespace generator
                 switch (tTypeComboBox.SelectedIndex)
                 {
                     case 0:
+
                         RoundEliminationPage page1 = new RoundEliminationPage();
-                        page1.setGridSize(Convert.ToInt16(sizeTextBox.Text));
+                        page1.GridSize = Convert.ToInt16(sizeTextBox.Text);
+                        page1.TName = tNameTextBox.Text;
+
+
+                        CompetitorsList newList = new CompetitorsList(Convert.ToInt16(sizeTextBox.Text));
+
+                        for (int i = 0; i < Convert.ToInt16(sizeTextBox.Text); i++)
+                        {
+                            newList.setCompetitor(new Competitor(i, "", true), i);
+                        }
+
+                        page1.Relist = newList;
+
+
                         NavigationService.Navigate(page1);
                         break;
                     case 1:
@@ -80,14 +94,17 @@ namespace generator
 
         private void sizeTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            int size = 0;
+
             try
             {
-                int s = Convert.ToInt16(sizeTextBox.Text);
+                size = Convert.ToInt16(sizeTextBox.Text);
             }
-            catch (System.FormatException)
+            catch (FormatException)
             {
                 sizeTextBox.Clear();
             }
+
         }
     }
 }

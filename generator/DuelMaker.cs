@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace generator
 {
-    class DuelMaker
+    public class DuelMaker
     {
         public static DuelList createDuels(CompetitorsList compList, int dNum = 0)   //create new duel list
         {
@@ -16,7 +16,7 @@ namespace generator
                 DuelList myList = new DuelList(compNum / 2);
                 for (int first = 0, last = compNum; (first <= compNum / 2) && (last > compNum / 2); first++, last--)
                 {
-                    Duel newDuel = new Duel(first, last, dNum);
+                    Duel newDuel = new Duel(compList.getCompetitor(first), compList.getCompetitor(last), dNum);
                     myList.setDuel(newDuel, dNum);
                     dNum++;
                 }
