@@ -7,8 +7,8 @@
       mc:Ignorable="d" 
       Title="RoundEliminationPage" Width ="auto" Height="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Loaded="Page_Loaded">
 
-    <ScrollViewer>
-        <Grid x:Name="grid"/>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid x:Name="grid" Margin="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </ScrollViewer>
     
 </Page>
