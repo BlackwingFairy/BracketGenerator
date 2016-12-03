@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:generator"
         mc:Ignorable="d"
-        Title="MainWindow" WindowState="Maximized" Cursor="Arrow"
+        Title="MainWindow" WindowState="Normal" Cursor="Arrow"
         Source="InputPage.xaml"
         >
 </NavigationWindow>

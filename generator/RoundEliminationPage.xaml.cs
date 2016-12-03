@@ -47,16 +47,54 @@ namespace generator
         }
 
 
+        private void VGrid_Create(int number, Thickness BorderThickness, int fontSize, int leftPosition, Grid grid)
+        {
+            TextBox[,] TboxGroup = new TextBox[number, number];
+            int height = fontSize * 2 + 4;
+            Thickness myThickness = new Thickness() { Left = leftPosition, Top = height - 1 };
+            for (int i=0;i<number;i++)
+            {
+                myThickness.Left = leftPosition;
+                for (int j = 0; j < number; j++)
+                {
+                    TboxGroup[i, j] = new TextBox()
+                    {
+                        Text = "",
+                        VerticalAlignment = VerticalAlignment.Top,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        Margin = myThickness,
+                        Height = height,
+                        Width = fontSize * 3,
+                        FontSize = fontSize,
+                        BorderBrush = Brushes.Black,
+                        BorderThickness = BorderThickness,
+                        HorizontalContentAlignment = HorizontalAlignment.Center,
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        Name = "TboxGroup" + i + j
+                    };
+
+                    if (i == j)
+                    {
+                        TboxGroup[i, j].IsEnabled = false;
+                        TboxGroup[i, j].Background = Brushes.Black;
+                    }
+                    grid.Children.Add(TboxGroup[i, j]);
+                    myThickness.Left += fontSize * 3 - 1;
+                }
+                myThickness.Top += height - 1;
+            }
+        }
+
         private void Vlabel_Create(int number, Thickness BorderThickness, int fontSize, int leftPosition, Grid grid)
         {
             Label[] myVLabel = new Label[number];
             Thickness myVLabelThickness = new Thickness() { Left = leftPosition };
             int height = fontSize * 2 + 4;
-            myVLabelThickness.Top = height;
+            myVLabelThickness.Top = height-BorderThickness.Top;
 
             for (int i = 0; i < myVLabel.Length; i++)
             {
-                myVLabelThickness.Top =height + (height-BorderThickness.Top) * i;
+                myVLabelThickness.Top = (height - BorderThickness.Top) * (i + 1);
                 myVLabel[i] = new Label()
                 {
                     Content = Convert.ToString(i + 1),
@@ -78,7 +116,7 @@ namespace generator
 
         private void NameLabel_Create(string name, int width, int leftPosition, int fontSize, Thickness BorderThickness, Grid grid)
         {
-            Thickness myNLabelThickness = new Thickness() { Left = leftPosition, Top = 1 };
+            Thickness myNLabelThickness = new Thickness() { Left = leftPosition };
             Label nameLabel = new Label()
             {
                 Content = name,
@@ -120,11 +158,11 @@ namespace generator
             TextBox[] myNTextbox = new TextBox[list.getSize()];
             Thickness myNTextboxThickness = new Thickness() { Left = leftPosition };
             int height = fontSize * 2 + 4;
-            myNTextboxThickness.Top = height;
+            myNTextboxThickness.Top = height-BorderThickness.Top;
 
             for (int i = 0; i < list.getSize(); i++)
             {
-                myNTextboxThickness.Top = height + (height - BorderThickness.Top) * i;
+                myNTextboxThickness.Top =(height - BorderThickness.Top) * (i+1);
 
                 myNTextbox[i] = new TextBox()
                 {
@@ -150,7 +188,7 @@ namespace generator
         private void HLabel_Create(int number, Thickness BorderThickness, int fontSize, int leftPosition, Grid grid)
         {
             Label[] myHLabel = new Label[number];
-            Thickness myHLabelThickness = new Thickness() { Left = leftPosition, Top=1};
+            Thickness myHLabelThickness = new Thickness() { Left = leftPosition};
             int height = fontSize * 2 + 4;
 
             for (int i = 0; i < myHLabel.Length; i++)
@@ -180,10 +218,11 @@ namespace generator
         {
             Thickness myBorderThickness = new Thickness() { Left = 1, Right=1, Bottom = 1, Top = 1 };
 
-            Vlabel_Create(gridSize, myBorderThickness,12,20,grid);
-            NameTextbox_Create(relist, myBorderThickness, 12, 19 + 36, grid);
-            NameLabel_Create(tName, 23 + 12 * 31, 20, 12, myBorderThickness, grid);
-            HLabel_Create(gridSize, myBorderThickness, 12, 42 + 12 * 31, grid);
+            Vlabel_Create(gridSize, myBorderThickness,12,0,grid);
+            NameTextbox_Create(relist, myBorderThickness, 12, 35, grid);
+            NameLabel_Create(tName, 23 + 12 * 31, 0, 12, myBorderThickness, grid);
+            HLabel_Create(gridSize, myBorderThickness, 12, 22 + 12 * 31, grid);
+            VGrid_Create(gridSize, myBorderThickness, 12, 22 + 12 * 31, grid);
         }
     }
 }
