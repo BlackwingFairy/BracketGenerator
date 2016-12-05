@@ -62,119 +62,123 @@ namespace generator
             return fork;
         }
 
-        //private StackPanel MyFStackP_Create(TextBox numbox, TextBox namebox)
-        //{
-        //    StackPanel myStackP = new StackPanel()
-        //    {
-        //        Orientation = Orientation.Horizontal,
-        //        Height = numbox.Height + 2,
-        //        Width = numbox.Width + namebox.Width + 2
-        //    };
-        //    myStackP.Children.Add(numbox);
-        //    myStackP.Children.Add(namebox);
-        //    return myStackP;
-        //}
+        private void NamesWrapPanel_Create(DuelList list, Thickness BorderThickness, int fontSize, int leftPosition, Grid grid)
+        {
+            StackPanel[] panel = new StackPanel[list.getSize()*2];
+            TextBox[] myNTextbox = new TextBox[list.getSize()*2];
+            TextBox[] numBox = new TextBox[list.getSize() * 2];
 
-        //private StackPanel PairStackP_Create(StackPanel stp1, StackPanel stp2)
-        //{
-        //    StackPanel pStackPanel = new StackPanel()
-        //    {
-        //        Orientation = Orientation.Vertical,
-        //        Height = stp1.Height + stp2.Height + 2,
-        //        Width = stp2.Width
-        //    };
-        //    pStackPanel.Children.Add(stp1);
-        //    pStackPanel.Children.Add(stp2);
-        //    return pStackPanel;
-        //}
+            Thickness myWPThickness = new Thickness() { Left = leftPosition };
+            int height = fontSize * 2 + 4;
+            int j = 0;
+            for (int i = 0; i < list.getSize()*2; i++)
+            {
 
-        //private StackPanel DuelStackP_Create(StackPanel pair, int duelNum)
-        //{
-        //    Label dnl = new Label()
-        //    {
-        //        Content = duelNum + "",
-        //        VerticalAlignment = VerticalAlignment.Center,
-        //        FontSize = 12,
-        //        Width = FontSize * 3
-        //    };
-        //    StackPanel dStackPanel = new StackPanel()
-        //    {
-        //        Orientation = Orientation.Horizontal,
-        //        Height = pair.Height + 2,
-        //        Width = pair.Width + dnl.Width + 2,
-        //    };
-        //    dStackPanel.Children.Add(dnl);
-        //    dStackPanel.Children.Add(pair);
-        //    return dStackPanel;
-        //}
+                if (i % 2 == 0)
+                {
+                    myWPThickness.Top = (height - BorderThickness.Top) * (i + 1);
+
+                    myNTextbox[i] = new TextBox()
+                    {
+                        Text = list.getDuel(i).comp1.name,
+                        VerticalAlignment = VerticalAlignment.Top,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        Height = height,
+                        Width = fontSize * 30,
+                        FontSize = fontSize,
+                        BorderBrush = Brushes.Black,
+                        BorderThickness = BorderThickness,
+                        HorizontalContentAlignment = HorizontalAlignment.Center,
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        Name = "myNTextbox" + i
+                    };
+                    //myNTextbox[i].KeyDown += new KeyEventHandler(MyNTextbox_KeyDown);
+                    numBox[i] = new TextBox()
+                    {
+                        Text = list.getDuel(i).comp1.ratingNum + "",
+                        VerticalAlignment = VerticalAlignment.Top,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        Height = height,
+                        Width = fontSize * 30,
+                        FontSize = fontSize,
+                        BorderBrush = Brushes.Black,
+                        BorderThickness = BorderThickness,
+                        HorizontalContentAlignment = HorizontalAlignment.Center,
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        Name = "myNTextbox" + i
+                    };
+                    panel[i] = new StackPanel()
+                    {
+                        Margin = myWPThickness,
+                        Height = numBox[i].Height,
+                        IsEnabled = list.getDuel(i).comp1.exist ? true : false
+                    };
+                    panel[i].Children.Add(numBox[i]);
+                    panel[i].Children.Add(myNTextbox[i]);
+                    grid.Children.Add(panel[i]);
+                }
+                else
+                {
+                    myWPThickness.Top = (height - BorderThickness.Top) * (i + 1);
+                    myWPThickness.Bottom = myWPThickness.Top;
+                    myNTextbox[i] = new TextBox()
+                    {
+                        Text = list.getDuel(j).comp2.name,
+                        VerticalAlignment = VerticalAlignment.Top,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        Height = height,
+                        Width = fontSize * 30,
+                        FontSize = fontSize,
+                        BorderBrush = Brushes.Black,
+                        BorderThickness = BorderThickness,
+                        HorizontalContentAlignment = HorizontalAlignment.Center,
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        Name = "myNTextbox" + i
+                    };
+                    //myNTextbox[i].KeyDown += new KeyEventHandler(MyNTextbox_KeyDown);
+                    numBox[i] = new TextBox()
+                    {
+                        Text = list.getDuel(j).comp2.ratingNum + "",
+                        VerticalAlignment = VerticalAlignment.Top,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        Height = height,
+                        Width = fontSize * 30,
+                        FontSize = fontSize,
+                        BorderBrush = Brushes.Black,
+                        BorderThickness = BorderThickness,
+                        HorizontalContentAlignment = HorizontalAlignment.Center,
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        Name = "myNTextbox" + i
+                    };
+                    panel[i] = new StackPanel()
+                    {
+                        Margin = myWPThickness,
+                        Height = numBox[i].Height,
+                        IsEnabled = list.getDuel(i).comp2.exist ? true : false
+                    };
+                    panel[i].Children.Add(numBox[i]);
+                    panel[i].Children.Add(myNTextbox[i]);
+                    grid.Children.Add(panel[i]);
+                    j++;
+                }
+                
+                
+            }
+        }
+
+        
 
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            StackPanel[] pairs1 = new StackPanel[5];
-            TextBox[] numbox = new TextBox[10];
-            TextBox[] namebox = new TextBox[10];
-            for (int i=0;i<5;i++)
+            Thickness border = new Thickness() { Left = 1, Right = 1, Bottom = 1, Top = 1 };
+            CompetitorsList newList = new CompetitorsList(8);
+            for (int i=0; i<8;i++)
             {
-                Thickness myMargin = new Thickness() { Top = 0 };
-                numbox[i] = new TextBox()
-                {
-                    Text = Convert.ToString(i + 1),
-                    Height = FontSize*2+4,
-                    Width = FontSize * 3,
-                    FontSize = 12,
-                    BorderBrush = Brushes.Black,
-                    BorderThickness = new Thickness() { Top = 1, Left = 1, Right = 1, Bottom = 1 },
-                    HorizontalContentAlignment = HorizontalAlignment.Center,
-                    VerticalContentAlignment = VerticalAlignment.Center
-                };
-
-                numbox[9 - i] = new TextBox()
-                {
-                    Text = Convert.ToString(10 - i),
-                    Height = FontSize*2 + 4,
-                    Width = FontSize * 3,
-                    FontSize = 12,
-                    BorderBrush = Brushes.Black,
-                    BorderThickness = new Thickness() { Top = 1, Left = 1, Right = 1, Bottom = 1 },
-                    HorizontalContentAlignment = HorizontalAlignment.Center,
-                    VerticalContentAlignment = VerticalAlignment.Center
-                };
-
-                namebox[i] = new TextBox()
-                {
-                    Text = "",
-                    Height = FontSize*2 + 4,
-                    Width = FontSize * 20,
-                    FontSize = FontSize,
-                    BorderBrush = Brushes.Black,
-                    BorderThickness = new Thickness() { Top = 1, Left = 1, Right = 1, Bottom = 1 },
-                    HorizontalContentAlignment = HorizontalAlignment.Center,
-                    VerticalContentAlignment = VerticalAlignment.Center,
-                    Name = "myNTextbox" + i
-                };
-
-                namebox[9-i] = new TextBox()
-                {
-                    Text = "",
-                    Height = FontSize*2 + 4,
-                    Width = FontSize * 20,
-                    FontSize = FontSize,
-                    BorderBrush = Brushes.Black,
-                    BorderThickness = new Thickness() { Top = 1, Left = 1, Right = 1, Bottom = 1 },
-                    HorizontalContentAlignment = HorizontalAlignment.Center,
-                    VerticalContentAlignment = VerticalAlignment.Center,
-                    Name = "myNTextbox" + i
-                };
-
-                pairs1[i] = DuelStackP_Create(PairStackP_Create(
-                    MyFStackP_Create(numbox[i], namebox[i]), MyFStackP_Create(numbox[9 - i], namebox[9 - i])), i+1);
-                myMargin.Top = i * (pairs1[i].Height*2);
-                pairs1[i].Margin = myMargin;
-                grid.Children.Add(pairs1[i]);
+                newList.setCompetitor(new Competitor(i, "", true),i);
             }
-            Polyline fork1 = FirstFork_Create(pairs1[0].Height / 3, pairs1[0].Width - 1, pairs1[0].Height / 3);
-            grid.Children.Add(fork1);
+            DuelList newdlist = DuelMaker.duelDispose(DuelMaker.createDuels(newList));
+            NamesWrapPanel_Create(newdlist, border, 12, 0, grid);
         }
     }
 }

@@ -8,7 +8,8 @@ namespace generator
 {
     public class DuelList
     {
-        private Duel[] list
+        private Duel[] list;
+        public Duel[]List
         {
             set { list = value; }
             get { return list; }
