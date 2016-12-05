@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:generator"
         mc:Ignorable="d"
         Title="MainWindow" WindowState="Normal" Cursor="Arrow"
+        Background="LightGray"
         Source="InputPage.xaml"
         >
 </NavigationWindow>

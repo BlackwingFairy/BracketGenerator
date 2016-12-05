@@ -5,7 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:generator"
       mc:Ignorable="d" 
-      Title="SingleEliminaionPage" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+      Title="SingleEliminaionPage"  Width ="auto" Height="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Loaded="Page_Loaded">
 
-    <Grid Margin="20"/>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid x:Name="grid" Margin="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+    </ScrollViewer>
+
 </Page>
