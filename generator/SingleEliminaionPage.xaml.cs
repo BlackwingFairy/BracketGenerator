@@ -62,123 +62,78 @@ namespace generator
             return fork;
         }
 
-        private void NamesWrapPanel_Create(DuelList list, Thickness BorderThickness, int fontSize, int leftPosition, Grid grid)
+        
+        private void Step_Create(Duel duel,int leftPos, int topPos, int stepNum, int fontSize, Thickness borderThickness, Grid grid)
         {
-            StackPanel[] panel = new StackPanel[list.getSize()*2];
-            TextBox[] myNTextbox = new TextBox[list.getSize()*2];
-            TextBox[] numBox = new TextBox[list.getSize() * 2];
-
-            Thickness myWPThickness = new Thickness() { Left = leftPosition };
-            int height = fontSize * 2 + 4;
-            int j = 0;
-            for (int i = 0; i < list.getSize()*2; i++)
+            
+            TextBox nBox1 = new TextBox()
             {
-
-                if (i % 2 == 0)
-                {
-                    myWPThickness.Top = (height - BorderThickness.Top) * (i + 1);
-
-                    myNTextbox[i] = new TextBox()
-                    {
-                        Text = list.getDuel(i).comp1.name,
-                        VerticalAlignment = VerticalAlignment.Top,
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        Height = height,
-                        Width = fontSize * 30,
-                        FontSize = fontSize,
-                        BorderBrush = Brushes.Black,
-                        BorderThickness = BorderThickness,
-                        HorizontalContentAlignment = HorizontalAlignment.Center,
-                        VerticalContentAlignment = VerticalAlignment.Center,
-                        Name = "myNTextbox" + i
-                    };
-                    //myNTextbox[i].KeyDown += new KeyEventHandler(MyNTextbox_KeyDown);
-                    numBox[i] = new TextBox()
-                    {
-                        Text = list.getDuel(i).comp1.ratingNum + "",
-                        VerticalAlignment = VerticalAlignment.Top,
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        Height = height,
-                        Width = fontSize * 30,
-                        FontSize = fontSize,
-                        BorderBrush = Brushes.Black,
-                        BorderThickness = BorderThickness,
-                        HorizontalContentAlignment = HorizontalAlignment.Center,
-                        VerticalContentAlignment = VerticalAlignment.Center,
-                        Name = "myNTextbox" + i
-                    };
-                    panel[i] = new StackPanel()
-                    {
-                        Margin = myWPThickness,
-                        Height = numBox[i].Height,
-                        IsEnabled = list.getDuel(i).comp1.exist ? true : false
-                    };
-                    panel[i].Children.Add(numBox[i]);
-                    panel[i].Children.Add(myNTextbox[i]);
-                    grid.Children.Add(panel[i]);
-                }
-                else
-                {
-                    myWPThickness.Top = (height - BorderThickness.Top) * (i + 1);
-                    myWPThickness.Bottom = myWPThickness.Top;
-                    myNTextbox[i] = new TextBox()
-                    {
-                        Text = list.getDuel(j).comp2.name,
-                        VerticalAlignment = VerticalAlignment.Top,
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        Height = height,
-                        Width = fontSize * 30,
-                        FontSize = fontSize,
-                        BorderBrush = Brushes.Black,
-                        BorderThickness = BorderThickness,
-                        HorizontalContentAlignment = HorizontalAlignment.Center,
-                        VerticalContentAlignment = VerticalAlignment.Center,
-                        Name = "myNTextbox" + i
-                    };
-                    //myNTextbox[i].KeyDown += new KeyEventHandler(MyNTextbox_KeyDown);
-                    numBox[i] = new TextBox()
-                    {
-                        Text = list.getDuel(j).comp2.ratingNum + "",
-                        VerticalAlignment = VerticalAlignment.Top,
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        Height = height,
-                        Width = fontSize * 30,
-                        FontSize = fontSize,
-                        BorderBrush = Brushes.Black,
-                        BorderThickness = BorderThickness,
-                        HorizontalContentAlignment = HorizontalAlignment.Center,
-                        VerticalContentAlignment = VerticalAlignment.Center,
-                        Name = "myNTextbox" + i
-                    };
-                    panel[i] = new StackPanel()
-                    {
-                        Margin = myWPThickness,
-                        Height = numBox[i].Height,
-                        IsEnabled = list.getDuel(i).comp2.exist ? true : false
-                    };
-                    panel[i].Children.Add(numBox[i]);
-                    panel[i].Children.Add(myNTextbox[i]);
-                    grid.Children.Add(panel[i]);
-                    j++;
-                }
-                
-                
-            }
+                Text = duel.comp1.name,
+                VerticalContentAlignment = VerticalAlignment.Center,
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                Height = fontSize * 2,
+                Width = fontSize * 20,
+                BorderBrush = Brushes.Black,
+                BorderThickness = borderThickness
+            };
+            TextBox nbox2 = new TextBox()
+            {
+                Text = duel.comp2.name,
+                VerticalContentAlignment = VerticalAlignment.Center,
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                Height = fontSize * 2,
+                Width = fontSize * 20,
+                BorderBrush = Brushes.Black,
+                BorderThickness = borderThickness
+            };
+            TextBox number1 = new TextBox()
+            {
+                Text = duel.comp1.ratingNum+"",
+                VerticalContentAlignment = VerticalAlignment.Center,
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                Height = fontSize * 2,
+                Width = fontSize * 3,
+                BorderBrush = Brushes.Black,
+                BorderThickness = borderThickness
+            };
+            TextBox number2 = new TextBox()
+            {
+                Text = duel.comp2.ratingNum + "",
+                VerticalContentAlignment = VerticalAlignment.Center,
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                Height = fontSize * 2,
+                Width = fontSize * 3,
+                BorderBrush = Brushes.Black,
+                BorderThickness = borderThickness
+            };
+            WrapPanel panel = new WrapPanel()
+            {
+                Height = 2 * number1.Height,
+                Width = number1.Width + nBox1.Width,
+                Margin = new Thickness() { Left=leftPos, Bottom = topPos}
+            };
+            panel.Children.Add(number1);
+            panel.Children.Add(nBox1);
+            panel.Children.Add(number2);
+            panel.Children.Add(nbox2);
+            grid.Children.Add(panel);
         }
-
         
 
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Thickness border = new Thickness() { Left = 1, Right = 1, Bottom = 1, Top = 1 };
-            CompetitorsList newList = new CompetitorsList(8);
-            for (int i=0; i<8;i++)
+            DuelList newdlist = DuelMaker.duelDispose(DuelMaker.createDuels(selist));
+            int counter = 0;
+            foreach (Duel d in newdlist.List)
             {
-                newList.setCompetitor(new Competitor(i, "", true),i);
+                Step_Create(d, 0, 120 * counter, 1, 12, border, grid);
+                Polyline fork = FirstFork_Create(14+60*counter, 12 * 23, 24);
+                grid.Children.Add(fork);
+                counter++;
             }
-            DuelList newdlist = DuelMaker.duelDispose(DuelMaker.createDuels(newList));
-            NamesWrapPanel_Create(newdlist, border, 12, 0, grid);
+            
         }
     }
 }

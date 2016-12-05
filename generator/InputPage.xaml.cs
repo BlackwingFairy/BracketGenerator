@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace generator
 {
@@ -81,7 +72,40 @@ namespace generator
                         break;
                     case 1:
                         SingleEliminaionPage page2 = new SingleEliminaionPage();
-                        NavigationService.Navigate(page2);
+                        switch (sizeComboBox.SelectedIndex)
+                        {
+                            case 0:
+                                page2.GridSize = listTextBox.LineCount;
+                                CompetitorsList newList1 = new CompetitorsList(listTextBox.LineCount);
+
+                                for (int i = 0; i < listTextBox.LineCount; i++)
+                                {
+                                    newList1.setCompetitor(new Competitor(i, listTextBox.GetLineText(i), true), i);
+                                }
+                                page2.Selist = newList1;
+                                NavigationService.Navigate(page2);
+                                break;
+                            case 1:
+
+                                page2.GridSize = Convert.ToInt16(sizeTextBox.Text);
+
+
+                                CompetitorsList newList2 = new CompetitorsList(Convert.ToInt16(sizeTextBox.Text));
+
+                                for (int i = 0; i < Convert.ToInt16(sizeTextBox.Text); i++)
+                                {
+                                    newList2.setCompetitor(new Competitor(i, "", true), i);
+                                }
+
+                                page2.Selist = newList2;
+
+
+                                NavigationService.Navigate(page2);
+                                break;
+                            default:
+                                errorView();
+                                break;
+                        }
                         break;
                     default:
                         errorView();
