@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
+using System.Data.Entity;
+using System.Data.SQLite;
 
 namespace generator
 {
@@ -11,9 +13,13 @@ namespace generator
     /// </summary>
     public partial class InputPage : Page
     {
+        public Competitor Competitor { get; private set; }
+        public string Tournir { get; private set; }
         public InputPage()
         {
+            
             InitializeComponent();
+            
         }
 
         private void errorView()
@@ -39,10 +45,16 @@ namespace generator
                             case 0:
                                 page1.GridSize = listTextBox.LineCount;
                                 CompetitorsList newList1 = new CompetitorsList(listTextBox.LineCount);
-
+                                ApplicationContext dbase = new ApplicationContext();
+                                this.DataContext = Tournir;
+                                dbase.Tournir.Load();
+                                dbase.Tournir.Add(tNameTextBox);
+                                
                                 for (int i = 0; i < listTextBox.LineCount; i++)
                                 {
-                                    newList1.setCompetitor(new Competitor(i, listTextBox.GetLineText(i), true), i);
+                                    Competitor comp = new Competitor(i, listTextBox.GetLineText(i), true, tNameTextBox.Text);
+                                    newList1.setCompetitor(comp, i);
+                                    dbase.Competitors.Add(comp);
                                 }
                                 page1.Relist = newList1;
                                 NavigationService.Navigate(page1);
@@ -56,10 +68,12 @@ namespace generator
 
                                 for (int i = 0; i < Convert.ToInt16(sizeTextBox.Text); i++)
                                 {
-                                    newList2.setCompetitor(new Competitor(i, "", true), i);
+                                    newList2.setCompetitor(new Competitor(i, "", true, tNameTextBox.Text), i);
                                 }
 
                                 page1.Relist = newList2;
+
+                                
 
 
                                 NavigationService.Navigate(page1);
@@ -80,7 +94,7 @@ namespace generator
 
                                 for (int i = 0; i < listTextBox.LineCount; i++)
                                 {
-                                    newList1.setCompetitor(new Competitor(i, listTextBox.GetLineText(i), true), i);
+                                    newList1.setCompetitor(new Competitor(i, listTextBox.GetLineText(i), true, tNameTextBox.Text), i);
                                 }
                                 page2.Selist = newList1;
                                 NavigationService.Navigate(page2);
@@ -94,7 +108,7 @@ namespace generator
 
                                 for (int i = 0; i < Convert.ToInt16(sizeTextBox.Text); i++)
                                 {
-                                    newList2.setCompetitor(new Competitor(i, "", true), i);
+                                    newList2.setCompetitor(new Competitor(i, "", true, tNameTextBox.Text), i);
                                 }
 
                                 page2.Selist = newList2;
