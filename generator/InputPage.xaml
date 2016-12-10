@@ -22,13 +22,13 @@
                 <ComboBoxItem Content="Input the number of competitors"/>
             </ComboBox>
             <Label x:Name="listLabel" Content="Competitors list:" VerticalAlignment="Top" Visibility="Collapsed"/>
-            <TextBox x:Name="listTextBox" VerticalAlignment="Stretch" TextWrapping="Wrap" MinLines="2" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Visibility="Collapsed"/>
+            <TextBox x:Name="listTextBox" VerticalAlignment="Stretch" TextWrapping="Wrap" MinLines="5" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Visibility="Collapsed" TextChanged="listTextBox_TextChanged"/>
             <StackPanel x:Name="sizeStackPanel" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Orientation="Horizontal" Visibility="Collapsed" Margin="10">
                 <Label x:Name="sizelabel2" Content="Size:" Width="auto"/>
                 <TextBox x:Name="sizeTextBox" HorizontalAlignment="Stretch" Width="auto" MinWidth="50" TextChanged="sizeTextBox_TextChanged"/>
             </StackPanel>
             <Label x:Name="errorLabel" Content="Error" Visibility="Collapsed"/>
-            <Button x:Name="button" Content="Create" Margin="0,10,0,10" MinWidth="200" Width="200" VerticalAlignment="Bottom" Click="button_Click"/>
+            <Button x:Name="button" Content="Create" Margin="0,10,0,10" MinWidth="200" Width="200" VerticalAlignment="Bottom" IsEnabled="False" Click="button_Click"/>
 
         </StackPanel>
     </Grid>

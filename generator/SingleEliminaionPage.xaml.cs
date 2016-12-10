@@ -45,7 +45,7 @@ namespace generator
             get { return selist; }
         }
 
-        private Polyline FirstFork_Create(double top, double left, double height)
+        private Polyline Fork_Create(double top, double left, double height)
         {
             Point myPoint = new Point(left, top);
             Polyline fork = new Polyline()
@@ -62,78 +62,69 @@ namespace generator
             return fork;
         }
 
-        
-        private void Step_Create(Duel duel,int leftPos, int topPos, int stepNum, int fontSize, Thickness borderThickness, Grid grid)
+        private TextBox Numbox_Create(int content)
         {
-            
-            TextBox nBox1 = new TextBox()
+            return new TextBox()
             {
-                Text = duel.comp1.name,
-                VerticalContentAlignment = VerticalAlignment.Center,
+                Text = content+"",
+                Height = 28,
+                Width = 36,
                 HorizontalContentAlignment = HorizontalAlignment.Center,
-                Height = fontSize * 2,
-                Width = fontSize * 20,
-                BorderBrush = Brushes.Black,
-                BorderThickness = borderThickness
-            };
-            TextBox nbox2 = new TextBox()
-            {
-                Text = duel.comp2.name,
                 VerticalContentAlignment = VerticalAlignment.Center,
-                HorizontalContentAlignment = HorizontalAlignment.Center,
-                Height = fontSize * 2,
-                Width = fontSize * 20,
-                BorderBrush = Brushes.Black,
-                BorderThickness = borderThickness
+                Margin = new Thickness() { Top = 1, Bottom = 1 },
+                IsEnabled = false
             };
-            TextBox number1 = new TextBox()
-            {
-                Text = duel.comp1.ratingNum+"",
-                VerticalContentAlignment = VerticalAlignment.Center,
-                HorizontalContentAlignment = HorizontalAlignment.Center,
-                Height = fontSize * 2,
-                Width = fontSize * 3,
-                BorderBrush = Brushes.Black,
-                BorderThickness = borderThickness
-            };
-            TextBox number2 = new TextBox()
-            {
-                Text = duel.comp2.ratingNum + "",
-                VerticalContentAlignment = VerticalAlignment.Center,
-                HorizontalContentAlignment = HorizontalAlignment.Center,
-                Height = fontSize * 2,
-                Width = fontSize * 3,
-                BorderBrush = Brushes.Black,
-                BorderThickness = borderThickness
-            };
-            WrapPanel panel = new WrapPanel()
-            {
-                Height = 2 * number1.Height,
-                Width = number1.Width + nBox1.Width,
-                Margin = new Thickness() { Left=leftPos, Bottom = topPos}
-            };
-            panel.Children.Add(number1);
-            panel.Children.Add(nBox1);
-            panel.Children.Add(number2);
-            panel.Children.Add(nbox2);
-            grid.Children.Add(panel);
         }
-        
 
+        private TextBox Namebox_Create(bool exist, string name)
+        {
+            return new TextBox()
+            {
+                Text = name,
+                Height = 28,
+                Width = 36 * 5,
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                VerticalContentAlignment = VerticalAlignment.Center,
+                Margin = new Thickness() { Top = 1, Bottom = 1 },
+                IsEnabled = exist
+            };
+        }
+
+        private WrapPanel Duel_Create(double top, double left, int num, Duel duel)
+        {
+            WrapPanel NewPanel = new WrapPanel()
+            {
+                Name = "WrapPanel" + num,
+                Height = 60,
+                Width = 36*6,
+                Margin = new Thickness() { Top = top, Left = left },
+                VerticalAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Left
+            };
+            NewPanel.Children.Add(Numbox_Create(duel.comp1.ratingNum));
+            NewPanel.Children.Add(Namebox_Create(duel.comp1.exist, duel.comp1.name));
+            NewPanel.Children.Add(Numbox_Create(duel.comp2.ratingNum));
+            NewPanel.Children.Add(Namebox_Create(duel.comp2.exist, duel.comp2.name));
+            return NewPanel;
+        }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            Thickness border = new Thickness() { Left = 1, Right = 1, Bottom = 1, Top = 1 };
-            DuelList newdlist = DuelMaker.duelDispose(DuelMaker.createDuels(selist));
-            int counter = 0;
-            foreach (Duel d in newdlist.List)
+            DuelList Dlist = DuelMaker.duelDispose(DuelMaker.createDuels(Selist));
+            int step = 70;
+            for (int i=0;i<Dlist.getSize();i++)
             {
-                Step_Create(d, 0, 120 * counter, 1, 12, border, grid);
-                Polyline fork = FirstFork_Create(14+60*counter, 12 * 23, 24);
-                grid.Children.Add(fork);
-                counter++;
+                WrapPanel p1 = Duel_Create(step*i, 0, 1,Dlist.getDuel(i));
+                grid.Children.Add(p1);
             }
-            
+            //Polyline Fork = Fork_Create(14,36*6,28);
+
+
+
+            //Polyline Fork2 = Fork_Create(14+70, 36 * 6, 28);
+           
+            //grid.Children.Add(Fork);
+           
         }
-    }
+    } 
 }

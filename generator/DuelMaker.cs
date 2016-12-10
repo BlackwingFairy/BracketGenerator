@@ -10,13 +10,13 @@ namespace generator
     {
         public static DuelList createDuels(CompetitorsList compList, int dNum = 0)   //create new duel list
         {
-            if(dNum>=0)
+            if (dNum >= 0)
             {
                 int compNum = compList.getSize();
                 DuelList myList = new DuelList(compNum / 2);
-                for (int first = 0, last = compNum-1; (first <= compNum / 2) && (last > compNum / 2); first++, last--)
+                for (int i = 0; i < myList.getSize(); i++)
                 {
-                    Duel newDuel = new Duel(compList.getCompetitor(first), compList.getCompetitor(last), dNum);
+                    Duel newDuel = new Duel(compList.getCompetitor(i), compList.getCompetitor(compNum - (i + 1)), dNum);
                     myList.setDuel(newDuel, dNum);
                     dNum++;
                 }
@@ -32,10 +32,10 @@ namespace generator
         {
             int counter = dlist.getSize();
             DuelList sort = new DuelList(counter);
-            for (int i=0, first = 0, last = counter-1; (first <= counter / 2) && (last > counter / 2) && (i<counter-1); i+=2, first++, last--)
+            for (int i = 0; i < counter - 1; i += 2)
             {
-                sort.setDuel(dlist.getDuel(first),i);
-                sort.setDuel(dlist.getDuel(last), i + 1);
+                sort.setDuel(dlist.getDuel(i), i);
+                sort.setDuel(dlist.getDuel(counter - (i + 1)), i + 1);
             }
             return sort;
         }

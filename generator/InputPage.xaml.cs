@@ -29,6 +29,16 @@ namespace generator
             errorLabel.Visibility = Visibility.Visible;
         }
 
+        private int TrueSingleElimSize(int InputSize)
+        {
+            int n = 0;
+            while (Math.Pow(2, n) < InputSize)
+            {
+                n++;
+            }
+            return n;
+        }
+
         private void button_Click(object sender, RoutedEventArgs e)
         {
             if (tNameTextBox.Text.Length != 0)
@@ -84,31 +94,47 @@ namespace generator
                         }
                         
                         break;
+
                     case 1:
                         SingleEliminaionPage page2 = new SingleEliminaionPage();
                         switch (sizeComboBox.SelectedIndex)
                         {
                             case 0:
-                                page2.GridSize = listTextBox.LineCount;
-                                CompetitorsList newList1 = new CompetitorsList(listTextBox.LineCount);
+                                page2.GridSize = (int)Math.Pow(2,TrueSingleElimSize(listTextBox.LineCount));
+                                CompetitorsList newList1 = new CompetitorsList(page2.GridSize);
 
-                                for (int i = 0; i < listTextBox.LineCount; i++)
+                                for (int i = 0; i < page2.GridSize; i++)
                                 {
-                                    newList1.setCompetitor(new Competitor(i, listTextBox.GetLineText(i), true, tNameTextBox.Text), i);
+                                    if (i < listTextBox.LineCount)
+                                    {
+                                        newList1.setCompetitor(new Competitor(i+1, listTextBox.GetLineText(i), true, tNameTextBox.Text), i);
+                                    }
+                                    else
+                                    {
+                                        newList1.setCompetitor(new Competitor(i+1, "", false, tNameTextBox.Text), i);
+                                    }
+                                    
                                 }
                                 page2.Selist = newList1;
                                 NavigationService.Navigate(page2);
                                 break;
                             case 1:
 
-                                page2.GridSize = Convert.ToInt16(sizeTextBox.Text);
+                                page2.GridSize =(int)Math.Pow(2,TrueSingleElimSize(Convert.ToInt16(sizeTextBox.Text)));
 
 
-                                CompetitorsList newList2 = new CompetitorsList(Convert.ToInt16(sizeTextBox.Text));
+                                CompetitorsList newList2 = new CompetitorsList(page2.GridSize);
 
-                                for (int i = 0; i < Convert.ToInt16(sizeTextBox.Text); i++)
+                                for (int i = 0; i < page2.GridSize; i++)
                                 {
-                                    newList2.setCompetitor(new Competitor(i, "", true, tNameTextBox.Text), i);
+                                    if (i< Convert.ToInt16(sizeTextBox.Text))
+                                    {
+                                        newList2.setCompetitor(new Competitor(i+1, "", true, tNameTextBox.Text), i);
+                                    }
+                                    else
+                                    {
+                                        newList2.setCompetitor(new Competitor(i+1, "", false, tNameTextBox.Text), i);
+                                    }
                                 }
 
                                 page2.Selist = newList2;
@@ -160,12 +186,18 @@ namespace generator
             try
             {
                 size = Convert.ToInt16(sizeTextBox.Text);
+                button.IsEnabled = true;
             }
             catch (FormatException)
             {
                 sizeTextBox.Clear();
             }
 
+        }
+
+        private void listTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            button.IsEnabled = true;
         }
     }
 }
