@@ -55,16 +55,11 @@ namespace generator
                             case 0:
                                 page1.GridSize = listTextBox.LineCount;
                                 CompetitorsList newList1 = new CompetitorsList(listTextBox.LineCount);
-                                ApplicationContext dbase = new ApplicationContext();
-                                this.DataContext = Tournir;
-                                dbase.Tournir.Load();
-                                dbase.Tournir.Add(tNameTextBox);
-                                
+                                                               
                                 for (int i = 0; i < listTextBox.LineCount; i++)
                                 {
                                     Competitor comp = new Competitor(i, listTextBox.GetLineText(i), true, tNameTextBox.Text);
                                     newList1.setCompetitor(comp, i);
-                                    dbase.Competitors.Add(comp);
                                 }
                                 page1.Relist = newList1;
                                 NavigationService.Navigate(page1);
