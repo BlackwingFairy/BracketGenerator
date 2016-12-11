@@ -95,7 +95,9 @@ namespace generator
                         switch (sizeComboBox.SelectedIndex)
                         {
                             case 0:
-                                page2.GridSize = (int)Math.Pow(2,TrueSingleElimSize(listTextBox.LineCount));
+                                page2.Steps = TrueSingleElimSize(listTextBox.LineCount);
+                                page2.GridSize = (int)Math.Pow(2,page2.Steps);
+                                
                                 CompetitorsList newList1 = new CompetitorsList(page2.GridSize);
 
                                 for (int i = 0; i < page2.GridSize; i++)
