@@ -116,7 +116,7 @@ namespace generator
                                 NavigationService.Navigate(page2);
                                 break;
                             case 1:
-
+                                page2.Steps = TrueSingleElimSize(Convert.ToInt16(sizeTextBox.Text));
                                 page2.GridSize =(int)Math.Pow(2,TrueSingleElimSize(Convert.ToInt16(sizeTextBox.Text)));
 
 

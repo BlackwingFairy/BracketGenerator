@@ -95,7 +95,8 @@ namespace generator
                 HorizontalContentAlignment = HorizontalAlignment.Center,
                 VerticalContentAlignment = VerticalAlignment.Center,
                 Margin = new Thickness() { Top = 1, Bottom = 1 },
-                IsEnabled = exist
+                IsEnabled = exist,
+                Background = exist?Brushes.White:Brushes.LightGray
             };
         }
 
@@ -121,7 +122,7 @@ namespace generator
         {
             WrapPanel NewPanel = new WrapPanel()
             {
-                Name = "WrapPanel" + num,
+                //Name = "WrapPanel" + num,
                 Height = 30,
                 Width = 36 * 6,
                 Margin = new Thickness() { Top = top, Left = left },
@@ -144,40 +145,29 @@ namespace generator
             {
                 WrapPanel p1 = Duel_Create(step*i, 0, 1,Dlist.getDuel(i));
                 grid.Children.Add(p1);
+                grid.Children.Add(Fork_Create(step * i + 15, 36 * 6, 30));
             }
 
-            for (int s=steps;s>0;s--)
+            
+            int top = 15;
+            for (int s = steps; s > 0; s--)
             {
-                int topfork = 15 +(15+10)*(steps - s);
-                int toppanel = topfork - 1;
-                int newstep = step + (step + 10) * (steps - s);
-                double k = (int)Math.Pow(2, s - 1);
-                for (int n = 0;n<k;n++)
+                int left = (36 * 6 + 40) * (steps - s + 1);
+                int k = (int)Math.Pow(2, s - 1);
+
+                for (int n = 0; n < k; n++)
                 {
-                    if (s==steps)
-                    {
-                        Polyline Fork = Fork_Create(topfork + n * newstep, 36 * 6 + (36 * 6 + 40) * (steps - s), 30 * (steps - s + 1));
-                        grid.Children.Add(AlonePanel_Create(toppanel + n * newstep, (40 + 36 * 6) * (steps - s + 1), 1, ""));
-                        grid.Children.Add(Fork);
-                    }
-                    else
-                    {
-                        Polyline Fork = Fork_Create(topfork + n * newstep, 36 * 6 + (36 * 6 + 40) * (steps - s), 35 * (steps - s + 1));
-                        grid.Children.Add(AlonePanel_Create(toppanel + n * newstep, (40 + 36 * 6) * (steps - s + 1), 1, ""));
-                        grid.Children.Add(Fork);
-                    }
+                    grid.Children.Add(AlonePanel_Create(top + 70 * (int)Math.Pow(2, steps - s) * n, left, n, ""));                   
                 }
+                
+                for (int n = 0;n<k/2;n++)
+                {
+                    grid.Children.Add(Fork_Create((top + 15) + 70 * (int)Math.Pow(2, steps - s+1)*n, left + 36 * 6, 70*(int)Math.Pow(2,steps-s)));
+                }
+
+                top += 35 *(int)Math.Pow(2, steps - s);
             }
-           
-            
-            
 
-
-
-            //Polyline Fork2 = Fork_Create(14+70, 36 * 6, 28);
-           
-            
-           
         }
     } 
 }
