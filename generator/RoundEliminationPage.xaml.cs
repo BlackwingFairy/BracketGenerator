@@ -31,6 +31,7 @@ namespace generator
             get { return tName; }
         }
 
+        
         CompetitorsList relist;
         public CompetitorsList Relist
         {
@@ -127,19 +128,21 @@ namespace generator
         }
 
 
-        private void MyNTextbox_KeyDown(object sender, KeyEventArgs e)
+        private void MyNTextbox_KeyDown(object sender, KeyEventArgs e)    //РАБОТАЕТ)))
         {
             if (e.Key == Key.Return)
             {
                 TextBox tbox = sender as TextBox;
+                
                 for (int i = 0; i < relist.getSize(); i++)
                 {
-                    Competitor comp = relist.getCompetitor(i);
-                    if (Convert.ToInt16(tbox.Name.Last()) == comp.ratingNum)
+                    if (i + "" == Convert.ToString(tbox.Name.Last()))
                     {
-                        comp.name = tbox.Text;
+                        Competitor comp = new Competitor(i + 1, tbox.Text, true, TName);
+                        relist.setCompetitor(comp, i);
+                        tbox.Background = Brushes.Lavender;
                     }
-                    relist.setCompetitor(comp, i);
+                    
                 }
             }
         }
@@ -215,6 +218,15 @@ namespace generator
             NameLabel_Create(tName, 23 + 12 * 31, 0, 12, myBorderThickness, grid);
             HLabel_Create(gridSize, myBorderThickness, 12, 22 + 12 * 31, grid);
             VGrid_Create(gridSize, myBorderThickness, 12, 22 + 12 * 31, grid);
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataWorker.Add_Tournir(relist.getCompetitor(0).tournir);
+            DataWorker.Add_Competitors(relist);
+            string message = "List \"" + relist.getCompetitor(0).tournir + "\" was successfully created.";
+            MessageBoxButton button = MessageBoxButton.OK;
+            MessageBox.Show(message, "", button, MessageBoxImage.Information);
         }
     }
 }

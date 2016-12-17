@@ -13,8 +13,8 @@ namespace generator
     /// </summary>
     public partial class InputPage : Page
     {
-        public Competitor Competitor { get; private set; }
-        public string Tournir { get; private set; }
+        //public Competitor Competitor { get; private set; }
+        //public string Tournir { get; private set; }
         public InputPage()
         {
             

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,16 @@ namespace generator
         public MainWindow()
         {
             InitializeComponent();
+            SQLiteConnection.CreateFile(@"appdata.db");
+            SQLiteConnection connection =new SQLiteConnection("Data Source="+@"appdata.db");
+            SQLiteCommand command1 =
+            new SQLiteCommand("CREATE TABLE Tournirs (Id INTEGER PRIMARY KEY, Tournir TEXT);", connection);
+            SQLiteCommand command2 =
+            new SQLiteCommand("CREATE TABLE Competitors (Id INTEGER PRIMARY KEY, RatingNum INTEGER, Name TEXT, Exist BLOB, Tournir TEXT);", connection);
+            connection.Open();
+            command1.ExecuteNonQuery();
+            command2.ExecuteNonQuery();
+            connection.Close();
         }
     }
 }

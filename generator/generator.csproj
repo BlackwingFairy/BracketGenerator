@@ -85,11 +85,15 @@
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="Competitor.cs" />
     <Compile Include="CompetitorsList.cs" />
+    <Compile Include="DataWorker.cs" />
     <Compile Include="Duel.cs" />
     <Compile Include="DuelList.cs" />
     <Compile Include="DuelMaker.cs" />
     <Compile Include="RoundEliminationPage.xaml.cs">
       <DependentUpon>RoundEliminationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SaveListWindow.xaml.cs">
+      <DependentUpon>SaveListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="SingleEliminaionPage.xaml.cs">
       <DependentUpon>SingleEliminaionPage.xaml</DependentUpon>
@@ -117,6 +121,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SaveListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SingleEliminaionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -140,9 +148,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="mydbase.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
