@@ -47,7 +47,7 @@ namespace generator
                 {
                     case 0:
                         RoundEliminationPage page1 = new RoundEliminationPage();
-                        page1.TName = tNameTextBox.Text;
+                        
 
 
                         switch (sizeComboBox.SelectedIndex)
@@ -78,9 +78,9 @@ namespace generator
 
                                 page1.Relist = newList2;
 
-                                
 
 
+                                page1.TName = tNameTextBox.Text;
                                 NavigationService.Navigate(page1);
                                 break;
                             default:

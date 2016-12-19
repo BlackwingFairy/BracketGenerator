@@ -1,0 +1,20 @@
+﻿<Page x:Class="generator.LoadPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:generator"
+      mc:Ignorable="d" 
+      Title="LoadPage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Loaded="Page_Loaded">
+
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <StackPanel x:Name="TournStPanel" HorizontalAlignment="Center" Height="auto" VerticalAlignment="Top" Width="auto">
+                <Label x:Name="Tournaments" Content="Get competitors list from:" VerticalAlignment="Top" FontFamily="Script MT Bold" FontSize="22"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+
+    
+</Page>

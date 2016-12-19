@@ -46,17 +46,23 @@ namespace generator
         {
             SQLiteConnection connect = new SQLiteConnection("Data Source=" + databaseName);
             connect.Open();
-            SQLiteCommand command = new SQLiteCommand("SELECT * FROM 'Competitors' WHERE 'Tournir'=='"+Tournir+"';", connect);
+            //SQLiteCommand command = new SQLiteCommand("SELECT * FROM 'Competitors' WHERE 'Tournir'='"+Tournir+"';", connect);
+            SQLiteCommand command = new SQLiteCommand("SELECT * FROM 'Competitors';", connect);
             SQLiteDataReader reader = command.ExecuteReader();
             List<Competitor> CompList = new List<Competitor>();
             foreach (DbDataRecord record in reader)
             {
-                string id = record["Id"].ToString();
-                int rnum = Convert.ToInt32(record["RatingNum"].ToString());
-                string name = record["Name"].ToString();
-                bool exist = Convert.ToBoolean(record["Exist"].ToString());
                 string tournir = record["Tournir"].ToString();
-                CompList.Add(new Competitor(rnum,name,exist,tournir));
+                if (tournir == Tournir)
+                {
+                    string id = record["Id"].ToString();
+                    int rnum = Convert.ToInt32(record["RatingNum"].ToString());
+                    string name = record["Name"].ToString();
+                    bool exist = Convert.ToBoolean(record["Exist"].ToString());
+
+                    CompList.Add(new Competitor(rnum, name, exist, tournir));
+                }
+                
             }
             connect.Close();
             CompetitorsList RList = new CompetitorsList(CompList.Count);

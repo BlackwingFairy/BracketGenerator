@@ -212,9 +212,6 @@ namespace generator
 
         public static PngBitmapEncoder CaptureScreen(Grid grid)
         {
-            //UserControl control = new UserControl();
-            //control.Measure(new Size(300, 300));
-            //control.Arrange(new Rect(new Size(300, 300)));
             Size s = grid.RenderSize;
            
 
@@ -224,16 +221,7 @@ namespace generator
             var encoder = new PngBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bmp));
 
-            //System.Drawing.Bitmap BMP = new System.Drawing.Bitmap(System.Windows.Forms.Screen.PrimaryScreen.,
-            //                       System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height,
-            //                        System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            //System.Drawing.Graphics GFX = System.Drawing.Graphics.FromImage(BMP);
-            //GFX.CopyFromScreen(System.Windows.Forms.Screen.PrimaryScreen.Bounds.X,
-            //                    System.Windows.Forms.Screen.PrimaryScreen.Bounds.Y,
-            //                    0, 0,
-            //                    System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size,
-            //                    System.Drawing.CopyPixelOperation.SourceCopy);
-
+            
             return encoder;
         }
 

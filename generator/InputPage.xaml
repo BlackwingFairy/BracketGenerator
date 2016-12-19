@@ -9,27 +9,27 @@
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid>
-            <StackPanel HorizontalAlignment="Stretch" Margin="20,20,20,20" VerticalAlignment="Stretch">
-                <Label x:Name="tName" Content="Tournament name:" VerticalAlignment="Top"/>
-                <TextBox x:Name="tNameTextBox" Height="23" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                <Label x:Name="tType" Content="Tournament type:" VerticalAlignment="Top"/>
-                <ComboBox x:Name="tTypeComboBox" IsReadOnly="True" VerticalAlignment="Top">
-                    <ComboBoxItem Content="Round Elimination"/>
-                    <ComboBoxItem Content="Single Elimination"/>
+            <StackPanel HorizontalAlignment="Stretch" Margin="20,20,20,20" VerticalAlignment="Center">
+                <Label x:Name="tName" Content="Tournament name:" VerticalAlignment="Top" FontFamily="Script MT Bold" FontSize="22"/>
+                <TextBox x:Name="tNameTextBox" Height="auto" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="22"/>
+                <Label x:Name="tType" Content="Tournament type:" VerticalAlignment="Top" FontFamily="Script MT Bold" FontSize="22"/>
+                <ComboBox x:Name="tTypeComboBox" IsReadOnly="True" VerticalAlignment="Top" Height="auto" FontSize="18">
+                    <ComboBoxItem Content="Round Elimination" FontSize="18"/>
+                    <ComboBoxItem Content="Single Elimination" FontSize="18"/>
                 </ComboBox>
-                <Label x:Name="sizeLabel1" Content="Grid size:" VerticalAlignment="Top"/>
-                <ComboBox x:Name="sizeComboBox" IsReadOnly="True" VerticalAlignment="Top" SelectionChanged="sizeComboBox_SelectionChanged">
-                    <ComboBoxItem Content="Using number of list memebers"/>
-                    <ComboBoxItem Content="Input the number of competitors"/>
+                <Label x:Name="sizeLabel1" Content="Grid size:" VerticalAlignment="Top" FontFamily="Script MT Bold" FontSize="22"/>
+                <ComboBox x:Name="sizeComboBox" IsReadOnly="True" VerticalAlignment="Top" SelectionChanged="sizeComboBox_SelectionChanged" FontSize="18">
+                    <ComboBoxItem Content="Using number of list memebers" FontSize="18"/>
+                    <ComboBoxItem Content="Input number" FontSize="18"/>
                 </ComboBox>
-                <Label x:Name="listLabel" Content="Competitors list:" VerticalAlignment="Top" Visibility="Collapsed"/>
+                <Label x:Name="listLabel" Content="Competitors list:" VerticalAlignment="Top" Visibility="Collapsed" FontFamily="Script MT Bold" FontSize="22"/>
                 <TextBox x:Name="listTextBox" VerticalAlignment="Stretch" TextWrapping="Wrap" MinLines="5" MaxLines="25" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Visibility="Collapsed" TextChanged="listTextBox_TextChanged"/>
                 <StackPanel x:Name="sizeStackPanel" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Orientation="Horizontal" Visibility="Collapsed" Margin="10">
-                    <Label x:Name="sizelabel2" Content="Size:" Width="auto"/>
-                    <TextBox x:Name="sizeTextBox" HorizontalAlignment="Stretch" Width="auto" MinWidth="50" TextChanged="sizeTextBox_TextChanged"/>
+                    <Label x:Name="sizelabel2" Content="Size:" Width="auto" FontFamily="Script MT Bold" FontSize="22"/>
+                    <TextBox x:Name="sizeTextBox" HorizontalAlignment="Stretch" TextWrapping="Wrap" Width="auto" MinWidth="50" TextChanged="sizeTextBox_TextChanged" FontSize="22"/>
                 </StackPanel>
                 <Label x:Name="errorLabel" Content="Error" Visibility="Collapsed"/>
-                <Button x:Name="button" Content="Create" Margin="0,10,0,10" MinWidth="200" Width="200" VerticalAlignment="Bottom" IsEnabled="False" Click="button_Click"/>
+                <Button x:Name="button" Content="Create" Margin="0,10,0,10" MinWidth="200" Width="200" VerticalAlignment="Bottom" IsEnabled="False" Click="button_Click" FontFamily="Script MT Bold" FontSize="22"/>
     
             </StackPanel>
         </Grid>

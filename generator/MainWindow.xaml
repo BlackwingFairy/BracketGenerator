@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" WindowState="Normal" Cursor="Arrow"
         Background="LightGray"
-        Source="InputPage.xaml"
+        Source="StartPage.xaml" Icon="myIcon.ico"
         >
 </NavigationWindow>
     

@@ -29,7 +29,7 @@ namespace generator
             SQLiteCommand command1 =
             new SQLiteCommand("CREATE TABLE Tournirs (Id INTEGER PRIMARY KEY, Tournir TEXT);", connection);
             SQLiteCommand command2 =
-            new SQLiteCommand("CREATE TABLE Competitors (Id INTEGER PRIMARY KEY, RatingNum INTEGER, Name TEXT, Exist BLOB, Tournir TEXT);", connection);
+            new SQLiteCommand("CREATE TABLE Competitors (Id INTEGER PRIMARY KEY, RatingNum INTEGER, Name TEXT, Exist TEXT, Tournir TEXT);", connection);
             connection.Open();
             command1.ExecuteNonQuery();
             command2.ExecuteNonQuery();
