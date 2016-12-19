@@ -13,7 +13,7 @@
                 <Button x:Name="SaveButton" Content="Save competitors list" Margin="1" VerticalAlignment="Center" 
                         HorizontalAlignment="Center" Width="auto" Click="SaveButton_Click"/>
                 <Button x:Name="ScreenButton" Content="Save grid as image" Margin="1" VerticalAlignment="Center" 
-                        HorizontalAlignment="Center" Width="auto"/>
+                        HorizontalAlignment="Center" Width="auto" Click="ScreenButton_Click"/>
             </StackPanel>
             <Grid x:Name="grid" Margin="20,40,20,20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             
