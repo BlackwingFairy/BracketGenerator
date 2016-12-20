@@ -42,6 +42,15 @@ namespace generator
             connect.Close();
         }
 
+        public static void Delete_Tournir(string Name)
+        {
+            SQLiteConnection connect = new SQLiteConnection("Data Source=" + databaseName);
+            connect.Open();
+            SQLiteCommand command = new SQLiteCommand("DELETE FROM 'Tournirs' WHERE 'Tournir'='" + Name + "';", connect);
+            command.ExecuteNonQuery();
+            connect.Close();
+        }
+
         public static CompetitorsList Load_Competitors(string Tournir)
         {
             SQLiteConnection connect = new SQLiteConnection("Data Source=" + databaseName);

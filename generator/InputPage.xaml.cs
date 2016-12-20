@@ -62,6 +62,7 @@ namespace generator
                                     newList1.setCompetitor(comp, i);
                                 }
                                 page1.Relist = newList1;
+                                page1.TName = tNameTextBox.Text;
                                 NavigationService.Navigate(page1);
                                 break;
                             case 1:
@@ -92,6 +93,7 @@ namespace generator
 
                     case 1:
                         SingleEliminaionPage page2 = new SingleEliminaionPage();
+
                         switch (sizeComboBox.SelectedIndex)
                         {
                             case 0:
@@ -113,6 +115,7 @@ namespace generator
                                     
                                 }
                                 page2.Selist = newList1;
+                                page2.TName = tNameTextBox.Text;
                                 NavigationService.Navigate(page2);
                                 break;
                             case 1:
@@ -136,7 +139,7 @@ namespace generator
 
                                 page2.Selist = newList2;
 
-
+                                page2.TName = tNameTextBox.Text;
                                 NavigationService.Navigate(page2);
                                 break;
                             default:

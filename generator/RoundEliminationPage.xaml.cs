@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -140,7 +141,7 @@ namespace generator
                 {
                     if (i + "" == Convert.ToString(tbox.Name.Last()))
                     {
-                        Competitor comp = new Competitor(i + 1, tbox.Text, true, TName);
+                        Competitor comp = new Competitor(i + 1, tbox.Text+"\n", true, TName);
                         relist.setCompetitor(comp, i);
                         tbox.Background = Brushes.Lavender;
                     }
@@ -239,11 +240,32 @@ namespace generator
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            DataWorker.Add_Tournir(relist.getCompetitor(0).tournir);
-            DataWorker.Add_Competitors(relist);
-            string message = "List \"" + relist.getCompetitor(0).tournir + "\" was successfully created.";
-            MessageBoxButton button = MessageBoxButton.OK;
-            MessageBox.Show(message, "", button, MessageBoxImage.Information);
+            List<string> TList = DataWorker.Get_Tournirs();
+            bool flag = true;
+            foreach(string T in TList)
+            {
+                if (T == relist.getCompetitor(0).tournir)
+                {
+                    flag = false;
+                }
+            }
+            if (flag)
+            {
+                DataWorker.Add_Tournir(relist.getCompetitor(0).tournir);
+                DataWorker.Add_Competitors(relist);
+                string message = "List \"" + relist.getCompetitor(0).tournir + "\" was successfully created.";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBox.Show(message, "", button, MessageBoxImage.Information);
+            }
+            else
+            {
+                //DataWorker.Add_Tournir(relist.getCompetitor(0).tournir);
+                //DataWorker.Add_Competitors(relist);
+                string message = "Choose another tournir name. This name (\"" + relist.getCompetitor(0).tournir + "\") exist in database.";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBox.Show(message, "", button, MessageBoxImage.Information);
+            }
+            
         }
 
         private void ScreenButton_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -84,9 +85,28 @@ namespace generator
             };
         }
 
+        private void NameBox_KeyDown(object sender, KeyEventArgs e)    //РАБОТАЕТ)))
+        {
+            if (e.Key == Key.Return)
+            {
+                TextBox tbox = sender as TextBox;
+
+                for (int i = 0; i < selist.getSize(); i++)
+                {
+                    if (selist.getCompetitor(i).ratingNum+"" == Convert.ToString(tbox.Name.Last()))
+                    {
+                        Competitor comp = new Competitor(i + 1, tbox.Text+"\n", true, TName);
+                        selist.setCompetitor(comp, i);
+                        tbox.Background = Brushes.Lavender;
+                    }
+
+                }
+            }
+        }
+
         private TextBox Namebox_Create(bool exist, string name, int boxNum)
         {
-            return new TextBox()
+            TextBox NameBox = new TextBox()
             {
                 Name = "namebox" + boxNum,
                 Text = name,
@@ -96,8 +116,10 @@ namespace generator
                 VerticalContentAlignment = VerticalAlignment.Center,
                 Margin = new Thickness() { Top = 1, Bottom = 1 },
                 IsEnabled = exist,
-                Background = exist?Brushes.White:Brushes.LightGray
+                Background = exist?Brushes.White:Brushes.LightGray                
             };
+            NameBox.KeyDown += new KeyEventHandler(NameBox_KeyDown);
+            return NameBox;
         }
 
         private WrapPanel Duel_Create(double top, double left, int num, Duel duel)
@@ -112,9 +134,9 @@ namespace generator
                 HorizontalAlignment = HorizontalAlignment.Left
             };
             NewPanel.Children.Add(Numbox_Create(duel.comp1.ratingNum, duel.duelNum+1));
-            NewPanel.Children.Add(Namebox_Create(duel.comp1.exist, duel.comp1.name, duel.duelNum+1));
+            NewPanel.Children.Add(Namebox_Create(duel.comp1.exist, duel.comp1.name, duel.comp1.ratingNum));
             NewPanel.Children.Add(Numbox_Create(duel.comp2.ratingNum, duel.duelNum + 2));
-            NewPanel.Children.Add(Namebox_Create(duel.comp2.exist, duel.comp2.name, duel.duelNum + 2));
+            NewPanel.Children.Add(Namebox_Create(duel.comp2.exist, duel.comp2.name, duel.comp2.ratingNum));
             return NewPanel;
         }
 
@@ -168,6 +190,92 @@ namespace generator
                 top += 35 *(int)Math.Pow(2, steps - s);
             }
 
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> TList = DataWorker.Get_Tournirs();
+            bool flag = true;
+            foreach (string T in TList)
+            {
+                if (T == selist.getCompetitor(0).tournir)
+                {
+                    flag = false;
+                }
+            }
+            if (flag)
+            {
+                DataWorker.Add_Tournir(selist.getCompetitor(0).tournir);
+                DataWorker.Add_Competitors(selist);
+                string message = "List \"" + selist.getCompetitor(0).tournir + "\" was successfully created.";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBox.Show(message, "", button, MessageBoxImage.Information);
+            }
+            else
+            {
+                //DataWorker.Add_Tournir(relist.getCompetitor(0).tournir);
+                //DataWorker.Add_Competitors(relist);
+                string message = "Choose another tournir name. This name (\"" + selist.getCompetitor(0).tournir + "\") exist in database.";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBox.Show(message, "", button, MessageBoxImage.Information);
+            }
+        }
+
+        public static PngBitmapEncoder CaptureScreen(Grid grid)
+        {
+            Size s = grid.RenderSize;
+
+
+            RenderTargetBitmap bmp = new RenderTargetBitmap((int)s.Width + 40, (int)s.Height + 80, 0, 0, PixelFormats.Pbgra32);
+            bmp.Render(grid);
+
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bmp));
+
+
+            return encoder;
+        }
+
+        private void ScreenButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveButton.Visibility = Visibility.Hidden;
+            ScreenButton.Visibility = Visibility.Hidden;
+
+            PngBitmapEncoder screen = CaptureScreen(grid);
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "JPeg Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif";
+            saveFileDialog1.Title = "Save an Image File";
+            saveFileDialog1.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.
+            if (saveFileDialog1.FileName != "")
+            {
+                // Saves the Image via a FileStream created by the OpenFile method.
+                System.IO.FileStream fs =
+                   (System.IO.FileStream)saveFileDialog1.OpenFile();
+                // Saves the Image in the appropriate ImageFormat based upon the
+                // File type selected in the dialog box.
+                // NOTE that the FilterIndex property is one-based.
+                switch (saveFileDialog1.FilterIndex)
+                {
+                    case 1:
+                        screen.Save(fs);
+                        break;
+
+                    case 2:
+                        screen.Save(fs);
+                        break;
+
+                    case 3:
+                        screen.Save(fs);
+                        break;
+                }
+
+                fs.Close();
+            }
+            SaveButton.Visibility = Visibility.Visible;
+            ScreenButton.Visibility = Visibility.Visible;
         }
     } 
 }

@@ -23,7 +23,7 @@
                     <ComboBoxItem Content="Input number" FontSize="18"/>
                 </ComboBox>
                 <Label x:Name="listLabel" Content="Competitors list:" VerticalAlignment="Top" Visibility="Collapsed" FontFamily="Script MT Bold" FontSize="22"/>
-                <TextBox x:Name="listTextBox" VerticalAlignment="Stretch" TextWrapping="Wrap" MinLines="5" MaxLines="25" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Visibility="Collapsed" TextChanged="listTextBox_TextChanged"/>
+                <TextBox x:Name="listTextBox" VerticalAlignment="Stretch" TextWrapping="Wrap" MinLines="5" MaxLines="25" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Visibility="Collapsed" TextChanged="listTextBox_TextChanged" FontSize="16"/>
                 <StackPanel x:Name="sizeStackPanel" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Orientation="Horizontal" Visibility="Collapsed" Margin="10">
                     <Label x:Name="sizelabel2" Content="Size:" Width="auto" FontFamily="Script MT Bold" FontSize="22"/>
                     <TextBox x:Name="sizeTextBox" HorizontalAlignment="Stretch" TextWrapping="Wrap" Width="auto" MinWidth="50" TextChanged="sizeTextBox_TextChanged" FontSize="22"/>

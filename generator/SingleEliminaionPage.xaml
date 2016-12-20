@@ -8,7 +8,16 @@
       Title="SingleEliminaionPage"  Width ="auto" Height="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Loaded="Page_Loaded">
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <Grid x:Name="grid" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="10">
+                <Button x:Name="SaveButton" Content="Save competitors list" Margin="1" VerticalAlignment="Center" 
+                        HorizontalAlignment="Center" Width="auto" Click="SaveButton_Click" FontFamily="Script MT Bold" FontSize="16"/>
+                <Button x:Name="ScreenButton" Content="Save grid as image" Margin="1" VerticalAlignment="Center" 
+                        HorizontalAlignment="Center" Width="auto" Click="ScreenButton_Click" FontFamily="Script MT Bold" FontSize="16"/>
+            </StackPanel>
+            <Grid x:Name="grid" Margin="20,40,20,20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+        </Grid>
 
     </ScrollViewer>
 
