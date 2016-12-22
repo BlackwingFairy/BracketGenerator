@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:generator"
         mc:Ignorable="d"
-        Title="MainWindow" WindowState="Normal" Cursor="Arrow"
+        Title="Bracket Generator" WindowState="Normal" Cursor="Arrow"
         Background="LightGray"
         Source="StartPage.xaml" Icon="myIcon.ico"
-        >
-</NavigationWindow>
+        />
     
